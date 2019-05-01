@@ -1,0 +1,26 @@
+{
+  "name": "kanban-simplified",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merschermat/kanbakanban.git"
+  },
+  "author": "mateus merscher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merschermat/kanbakanban/issues"
+  },
+  "homepage": "https://github.com/merschermat/kanbakanban#readme",
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "express": "^4.16.4",
+    "hbs": "^4.0.4",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.5"
+  }
+}
