@@ -2,25 +2,34 @@ const modelTask = require('../model/TaskModel');
 const mongoose = require('mongoose')
 
 module.exports = {
-    create: function (req, res) {
+    create: function (obj, userId,result) {
         var task = new modelTask({
-            listID: req.body.listID,
-            name: req.body.name,
-            description: req.body.description,
-            userId: req.body.userId,
-            creation: req.body.creation,
+            listId: obj.listId,
+            name: obj.name,
+            description: obj.description,
+            userId: userId,
+            creation: Date.now(),
             removed: false
         });
 
         task.save(function (err, data) {
-            if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao salvar nova tarefa', error: err }) };
-            return res.json({ task: data, message: 'Tarefa criada com sucesso!' });
+            if (err) { result(err) }
+            else{result(data) }
         });
+    },
+
+    getByUser: function (userId) {
+        return new Promise(async (resolve, reject) => {
+            modelTask.find({ userId : userId, removed: false }, function (err, data) {
+                if (err) { resolve(null) }
+                if (data) { resolve(data) }
+            });
+        })
     },
 
     getById: function (req, res) {
         var id = req.params.id;
-        modelTask.findOne({ _id: id , removed : false}, function (err, data) {
+        modelTask.findOne({ _id: id, removed: false }, function (err, data) {
             if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao buscar tarefa', error: err }) };
             if (data) {
                 return res.json({ task: data, message: 'Tarefa encontrada!' });
@@ -30,16 +39,14 @@ module.exports = {
         });
     },
 
-    getByList: function (req, res) {
-        var listId = req.params.id;
-        modelTask.find({ listID : listId , removed : false}, function (err, data) {
-            if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao buscar tarefas', error: err }) };
-            if (data) {
-                return res.json({ data });
-            } else {
-                return res.status(201).json({ message: 'Tarefas não encontradas :(!' });
-            }
-        });
+    getByList: function (listId) {
+        return new Promise(async (resolve, reject) => {
+            modelTask.find({ listId : listId, removed: false }, function (err, data) {
+                if (err) { resolve(null) }
+                if (data) { resolve(data) }
+                resolve(null)
+            });
+        })
     },
 
     deleteById: function (req, res) {

@@ -9,7 +9,7 @@ module.exports = {
             name: req.body.name,
             email: req.body.email,
             password: hash.update(req.body.password).digest("hex"),
-            creation: req.body.creation,
+            creation: Date.now(),
             removed: false
         });
 
@@ -36,6 +36,17 @@ module.exports = {
                 return res.status(201).json({ user: data, message: 'Usuário não encontrado :(!' });
             }
         });
+    },
+    getByEmail: function (email) {
+        console.log(email);
+        
+        return new Promise((resolve, reject)=>{
+            modelUser.findOne({ email: email , removed : false}, function (err, data) {                
+                if (err) { resolve(null) }
+                if (data) { resolve(data) }
+                resolve(null)
+            });
+        })
     },
 
     deleteById: function (req, res) {

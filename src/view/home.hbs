@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kanban</title>
+    <link href="./public/home.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Kanban</h1>
+    <form action="list" method="POST">
+        <input type="text" name="name" id="" required>
+        <input type="text" name="description" id="" required>
+        <button type="submit">Salvar</button>
+    </form>
+    <div id="panel">
+        {{#each list}}
+        <div>
+            <h2>{{name}}</h2>
+            <div>
+                {{#each task}}
+                <div>
+                    <select>
+                        {{#each ../../list}}
+                        <option value="{{id}}">{{name}}</option>
+                        {{/each}}
+
+                    </select>
+                    <h3>{{this.name}}</h3>
+                    <h4>{{this.description}}</h4>
+                </div>
+                {{/each}}
+            </div>
+            <form action="task" method="POST">
+                <input type="hidden" name="listId" aria-hidden="true" value="{{id}}">
+                <input type="text" name="name" id="" required>
+                <input type="text" name="description" id="" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+        {{/each}}
+    </div>
+</body>
+
+</html>

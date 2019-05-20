@@ -2,28 +2,35 @@ const modelList = require('../model/ListModel');
 const mongoose = require('mongoose')
 
 module.exports = {
-    create: function (obj) {
+    create: function (obj, userId, result) {
+        console.log(userId);
+        
         var list = new modelList({
             panelID: obj.panelID,
             name: obj.name,
             description: obj.description,
-            userId: obj.userId,
-            creation: obj.creation,
+            userId: userId,
+            creation: Date.now(),
             removed: false
         });
 
         list.save(function (err, data) {
-            if(data){
-                return data
-            }else{
-                return err
-            }
+            if (err) { result(err) }
+            else{result(data) }
         });
     },
-
+    getByUser: function (userId) {
+        return new Promise(async (resolve, reject) => {
+            modelList.find({ userId: userId, removed: false }, function (err, data) {
+                if (err) { resolve(null) }
+                if (data) { resolve(data) }
+                resolve(null)
+            });
+        })
+    },
     getById: function (req, res) {
         var id = req.params.id;
-        modelList.findOne({ _id: id , removed : false}, function (err, data) {
+        modelList.findOne({ _id: id, removed: false }, function (err, data) {
             if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao buscar lista', error: err }) };
             if (data) {
                 return res.json({ task: data, message: 'Lista encontrada!' });
@@ -35,7 +42,7 @@ module.exports = {
 
     getByPanel: function (req, res) {
         var panelId = req.params.id;
-        modelList.find({ panelID : panelId , removed : false}, function (err, data) {
+        modelList.find({ panelID: panelId, removed: false }, function (err, data) {
             if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao buscar listas', error: err }) };
             if (data) {
                 return res.json({ data });

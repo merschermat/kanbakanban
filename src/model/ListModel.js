@@ -5,7 +5,7 @@ const listModel = mongoose.Schema({
     panelID: String,
     name: String,
     description: String,
-    useId: String,
+    userId: String,
     creation: Date,
     removed: Boolean
 });

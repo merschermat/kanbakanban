@@ -3,13 +3,16 @@ var router = express.Router();
 var controller = require('../../dao/ListCtrl');
 
 
-router.post('/list',(req, res)=>{
+router.post('/list', (req, res) => {
     let obj = req.body;
-    controller.create(obj).subscribe((data, err)=>{
-        if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao salvar nova lista', error: err }) };
-        return res.json({ list: data, message: 'Lista criada com sucesso!' });
-    })
-});
+    let list = controller.create(obj, req.cookies.login, (data)=>{
+        if (data) {
+            res.redirect('back');
+            return
+        };
+        res.status(500).json({ message: 'Ops! Ocorreu um erro ao salvar nova tarefa', error: err })
+        res.end();
+    })});
 router.get('/list/:id', controller.getById);
 router.get('/list', controller.getById);
 router.put('/list/:id', controller.updateById)
