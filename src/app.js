@@ -2,11 +2,6 @@ const express = require('express')
 const app = express();
 const path = require('path')
 var cookieParser = require('cookie-parser');
-
-const port = 3000;
-
-var port = normalizePort(process.env.PORT || '3000');
-
 const data = require('./dao/connection');
 
 data.connectionOpen();
@@ -27,4 +22,4 @@ app.get('/login',(req,res)=>{
 })
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(process.env.PORT || '4000',() => console.log(`Example app listening on port ${port}!`))
