@@ -6,37 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kanban</title>
+    <link href="./public/home.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <h1>Kanban</h1>
-     <div>
-        <form action="login" method="POST" accept-charset="utf-8">
-            
-            <label> Email
-                <input name="email" type="email">
-            </label>
-            <label> Password
-                <input name="password" type="password">
-            </label>
-            <input type="submit" value="enviar">
-        </form>
+    <div class="wrapper login">
+        <div>
+            <form class="blocks" action="login" method="POST" accept-charset="utf-8">
+                <h2>Fazer Login</h2>
+                <label>{{messageLogin}}</label>
+                <label>Email</label>
+                <input name="email" type="email" required placeholder="Insira o email">
+                <label> Password</label>
+                <input name="password" type="password" required placeholder="Insira a senhra">
+                <button class="btn" type="submit">Entrar</button>
+            </form>
+        </div>
+        <div>
+            <form class="blocks" action="user" method="POST" accept-charset="utf-8">
+                <label>{{messageCreate}}</label>
+                <h2>Criar Conta</h2>
+                <label>Email</label>
+                <input name="email" type="email" required placeholder="Insira o email">
+                <label> Username </label>
+                <input name="name" type="text" required placeholder="Insira o username">
+                <label> Password</label>
+                <input name="password" type="password" required placeholder="Insira a senha">
+                <button class="btn" type="submit" >Criar Conta</button>
+            </form>
+        </div>
     </div>
-    <div>
-        <form action="user" method="POST" accept-charset="utf-8">
-            
-            <label> Email
-                <input name="email" type="email">
-            </label>
-            <label> Username
-                <input name="name" type="text">
-            </label>
-            <label> Password
-                <input name="password" type="password">
-            </label>
-            <input type="submit" value="enviar">
-        </form>
-    </div>
+
 </body>
 
 </html>

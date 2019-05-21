@@ -11,37 +11,55 @@
 
 <body>
     <h1>Kanban</h1>
-    <form action="list" method="POST">
-        <input type="text" name="name" id="" required>
-        <input type="text" name="description" id="" required>
-        <button type="submit">Salvar</button>
-    </form>
-    <div id="panel">
-        {{#each list}}
-        <div>
-            <h2>{{name}}</h2>
-            <div>
-                {{#each task}}
-                <div>
-                    <select>
-                        {{#each ../../list}}
-                        <option value="{{id}}">{{name}}</option>
-                        {{/each}}
-
-                    </select>
-                    <h3>{{this.name}}</h3>
-                    <h4>{{this.description}}</h4>
-                </div>
-                {{/each}}
-            </div>
-            <form action="task" method="POST">
-                <input type="hidden" name="listId" aria-hidden="true" value="{{id}}">
-                <input type="text" name="name" id="" required>
-                <input type="text" name="description" id="" required>
-                <button type="submit">Salvar</button>
+    <a href="/logout">
+        <label id="logout">Sair</label>
+    </a>
+    <div class="wrapper">
+        <div class="newList">
+            <label>Adicionar nova lista </label>
+            <form action="list" method="POST">
+                <input type="text" name="name" id="" required placeholder="Título">
+                <input type="text" name="description" id="" required placeholder="Descrição...">
+                <button class="btn" type="submit">Salvar</button>
             </form>
         </div>
-        {{/each}}
+        <div id="panel">
+            {{#each list}}
+            <div class="list">
+                <h2>{{name}}</h2>
+                <div>
+                    {{#each task}}
+                    <div class="task">
+                        <div>
+                            <form action="task/{{this._id}}" method="POST">
+                                <label>Mover para:
+                                    <select name="listId" required>
+                                        <option value=""selected disabled>selecione</option>
+                                        {{#each ../../list}}
+                                        <option value="{{id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                    {{!-- <label for="{{this.name}}">
+                                        ✔ --}}
+                                    <button id="move" class="btn" type="submit" id="">mover</button>
+                                    {{!-- </label> --}}
+                                </label>
+                            </form>
+                        </div>
+                        <h3>{{this.name}}</h3>
+                        <p>{{this.description}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                <form class="addTask" action="task" method="POST">
+                    <input type="hidden" name="listId" aria-hidden="true" value="{{id}}">
+                    <input type="text" name="name" id="" required placeholder="Título">
+                    <textarea rows="2" cols="50" name="description" required placeholder="Descrição..."></textarea>
+                    <button class="btn" type="submit">Adicionar</button>
+                </form>
+            </div>
+            {{/each}}
+        </div>
     </div>
 </body>
 

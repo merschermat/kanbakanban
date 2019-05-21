@@ -1,21 +1,18 @@
 const modelUser = require('../model/UserModel');
 const mongoose = require('mongoose');
-const crypto = require('crypto');
-var hash = crypto.createHash('sha256');
 
 module.exports = {
-    create: function (req, res) {
+    create: function (obj, result) {
         var user = new modelUser({
-            name: req.body.name,
-            email: req.body.email,
-            password: hash.update(req.body.password).digest("hex"),
+            name: obj.name,
+            email: obj.email,
+            password: require('crypto').createHash('sha256').update(obj.password).digest("hex"),
             creation: Date.now(),
             removed: false
         });
-
         user.save(function (err, data) {
-            if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao salvar novo usuário', error: err }) };
-            return res.json({ user: data, message: 'Usuario criada com sucesso!' });
+            if (err) { result(err) }
+            else{result(data) }
         });
     },
     resetPassword: function(re, res){
@@ -37,9 +34,7 @@ module.exports = {
             }
         });
     },
-    getByEmail: function (email) {
-        console.log(email);
-        
+    getByEmail: function (email) {        
         return new Promise((resolve, reject)=>{
             modelUser.findOne({ email: email , removed : false}, function (err, data) {                
                 if (err) { resolve(null) }

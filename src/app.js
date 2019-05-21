@@ -16,7 +16,6 @@ app.use(express.static('.'));
 app.use(cookieParser());
 
 app.use(require('./controller/routes/User'));
-app.use(require('./controller/routes/Panel'));
 app.use(require('./controller/routes/List'));
 app.use(require('./controller/routes/Task'));
 app.use(require('./controller/routes/Home'));

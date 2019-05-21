@@ -6,7 +6,6 @@ module.exports = {
         console.log(userId);
         
         var list = new modelList({
-            panelID: obj.panelID,
             name: obj.name,
             description: obj.description,
             userId: userId,
@@ -40,18 +39,6 @@ module.exports = {
         });
     },
 
-    getByPanel: function (req, res) {
-        var panelId = req.params.id;
-        modelList.find({ panelID: panelId, removed: false }, function (err, data) {
-            if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro ao buscar listas', error: err }) };
-            if (data) {
-                return res.json({ data });
-            } else {
-                return res.status(201).json({ message: 'Listas não encontradas :(!' });
-            }
-        });
-    },
-
     deleteById: function (req, res) {
         var id = req.params.id;
         modelList.findByIdAndRemove(id, function (err, data) {
@@ -66,7 +53,6 @@ module.exports = {
         var obj = {
             name: body.name, description: body.description,
             removed: body.removed, creation: body.creation,
-            userID: body.userId, panelId: body.panelId
         };
         modelList.findByIdAndUpdate(id, obj, function (err, data) {
             if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro atualizar lista', error: err }) };

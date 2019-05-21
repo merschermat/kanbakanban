@@ -57,17 +57,10 @@ module.exports = {
         });
     },
 
-    updateById: function (req, res) {
-        var id = req.params.id;
-        var body = req.body;
-        var obj = {
-            name: body.name, description: body.description,
-            removed: body.removed, creation: body.creation,
-            userID: body.userId, listId: body.listId
-        };
-        modelTask.findByIdAndUpdate(id, obj, function (err, data) {
-            if (err) { return res.status(500).json({ message: 'Ops! Ocorreu um erro atualizar tarefa', error: err }) };
-            return res.json({ message: 'Tarefa atualizada com sucesso!' });
-        });
+    updateById: function (id, listId, result) {
+        modelTask.findOneAndUpdate({_id : id}, {$set:{listId : listId}}, function (err, data) {
+                if (err) { result(err) }
+                else{result(data) }
+        })
     }
 };

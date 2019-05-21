@@ -10,12 +10,10 @@ router.post('/list', (req, res) => {
             res.redirect('back');
             return
         };
-        res.status(500).json({ message: 'Ops! Ocorreu um erro ao salvar nova tarefa', error: err })
-        res.end();
+        res.redirect('/error')
     })});
 router.get('/list/:id', controller.getById);
 router.get('/list', controller.getById);
 router.put('/list/:id', controller.updateById)
-router.get('/list/panel/:id', controller.getByPanel);
 
 module.exports = router;

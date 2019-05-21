@@ -6,6 +6,7 @@ const uri = 'mongodb+srv://master:master_kanban@kanban-8fgdw.mongodb.net/test?re
 function connectionOpen() {    
     try{
         mongoose.connect(uri, { useNewUrlParser: true });
+        mongoose.set('useFindAndModify', false)
     }catch(err){
         console.log(err);
     }
