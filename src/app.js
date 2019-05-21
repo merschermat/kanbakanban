@@ -4,6 +4,9 @@ const path = require('path')
 var cookieParser = require('cookie-parser');
 
 const port = 3000;
+
+var port = normalizePort(process.env.PORT || '3000');
+
 const data = require('./dao/connection');
 
 data.connectionOpen();
