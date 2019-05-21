@@ -13,27 +13,21 @@
     <h1>Kanban</h1>
     <div class="wrapper login">
         <div>
-            <form class="blocks" action="login" method="POST" accept-charset="utf-8">
-                <h2>Fazer Login</h2>
-                <label>{{messageLogin}}</label>
-                <label>Email</label>
-                <input name="email" type="email" required placeholder="Insira o email">
-                <label> Password</label>
-                <input name="password" type="password" required placeholder="Insira a senhra">
-                <button class="btn" type="submit">Entrar</button>
-            </form>
-        </div>
-        <div>
-            <form class="blocks" action="user" method="POST" accept-charset="utf-8">
-                <label>{{messageCreate}}</label>
-                <h2>Criar Conta</h2>
+            <form class="blocks" action="/user" method="POST" accept-charset="utf-8">
+                <h2>Ooops :(</h2>
+                {{#if message}}
+                <label style="color:red">{{message}}</label>
                 <label>Email</label>
                 <input name="email" type="email" required placeholder="Insira o email">
                 <label> Username </label>
                 <input name="name" type="text" required placeholder="Insira o username">
                 <label> Password</label>
                 <input name="password" type="password" required placeholder="Insira a senha">
-                <button class="btn" type="submit" >Criar Conta</button>
+                <button class="btn" type="submit">Criar Conta</button>
+                {{else}}
+                <label>Algo deu errado enquanto tentavamos realizar as ações, tente novamente!</label>
+                {{/if}}
+
             </form>
         </div>
     </div>

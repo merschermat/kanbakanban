@@ -4,8 +4,6 @@ var List = require('../../dao/ListCtrl')
 
 var router = express.Router();
 var controller = require('../../dao/UserCtrl');
-const crypto = require('crypto');
-var hash = crypto.createHash('sha256');
 
 router.get('/', async (req, res) => {
     let userId = req.cookies.login

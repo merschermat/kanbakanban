@@ -12,8 +12,5 @@ router.post('/list', (req, res) => {
         };
         res.redirect('/error')
     })});
-router.get('/list/:id', controller.getById);
-router.get('/list', controller.getById);
-router.put('/list/:id', controller.updateById)
 
 module.exports = router;
