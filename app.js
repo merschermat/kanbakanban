@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const path = require('path')
 var cookieParser = require('cookie-parser');
-const data = require('./dao/connection');
+const data = require('./src/dao/connection');
 
 data.connectionOpen();
 
@@ -13,10 +13,10 @@ app.set('views', path.join(__dirname, 'view'));
 app.use(express.static('.'));
 app.use(cookieParser());
 
-app.use(require('./controller/routes/User'));
-app.use(require('./controller/routes/List'));
-app.use(require('./controller/routes/Task'));
-app.use(require('./controller/routes/Home'));
+app.use(require('./src/controller/routes/User'));
+app.use(require('./src/controller/routes/List'));
+app.use(require('./src/controller/routes/Task'));
+app.use(require('./src/controller/routes/Home'));
 app.get('/login',(req,res)=>{
     res.render('signup')
 })
